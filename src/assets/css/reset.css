@@ -98,26 +98,16 @@ button{
     *zoom: 1;
 }
 
-.noscroll,.noscroll body{
-    overflow: hidden;
+.fl{
+    float: left;
 }
-
-.noscroll body{
-    position: relative;
+.fr{
+    float: right;
 }
-
-.to-fixed{
-    position: fixed;
+.clearfix{overflow:hidden;_zoom:1;}
+.none {
+    display: none;
 }
-.f16{
-    font-size: 16px;
-}
-.f15{
-    font-size: 15px;
-}
-.f14{
-    font-size: 14px;
-}
-.mt55{
-    margin-top: 55px;
+.borBotGray{
+    border-bottom:1px dashed #EDEDED;
 }

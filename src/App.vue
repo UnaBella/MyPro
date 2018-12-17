@@ -1,13 +1,22 @@
 <template>
   <div id="app">
     <!--<div>-->
-      <!--&lt;!&ndash;<router-link to="/">Home</router-link> |&ndash;&gt;-->
-      <!--&lt;!&ndash;<router-link to="/about">About</router-link>&ndash;&gt;-->
-    <!--</div>-->
+    <!--<router-link to="/">Home</router-link> |-->
+    <!--<router-link to="/about">About</router-link>-->
+  <!--</div>-->
+    <Header></Header>
     <router-view/>
+    <Footer class=""></Footer>
   </div>
 </template>
-
+<script>
+  import Header from './components/common/Header';
+  import Footer from './components/common/Footer';
+    export default {
+        name: 'App',
+        components:{ Header, Footer},
+    }
+</script>
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
