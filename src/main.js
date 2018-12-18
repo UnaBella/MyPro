@@ -9,6 +9,7 @@ Vue.use(ElementUI);
 
 
 import './assets/css/reset.css'
+import './assets/css/aliconfont.css'
 Vue.config.productionTip = false
 // Vue.prototype.$ajax = axios
 new Vue({
