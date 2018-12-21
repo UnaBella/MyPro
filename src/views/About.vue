@@ -55,11 +55,57 @@
         </el-carousel>
       </div>
     </div>
-    <ul class="brand">
-      <li class="" v-for="item in 30" :key="item">
-        <img src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif" alt="">
-      </li>
-    </ul>
+    <div class="wrap">
+
+
+      <div class="pavilion">
+        <div class="unit" v-for="(item,index) in pavilions" :key="index">
+          <el-card :body-style="{ padding: '0px',width: '370px',
+              height: '320px' }" shadow="hover">
+
+            <div style="padding: 7px;">
+              <span class="name">{{item.name}} </span>
+              <span class="enName"> {{item.enName}}</span>
+            </div>
+            <img :src="item.img" class="image">
+          </el-card>
+        </div>
+      </div>
+      <ul class="brand">
+        <li class="" v-for="item in 30" :key="item">
+          <img src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif" alt="">
+        </li>
+      </ul>
+      <div class="tag">
+        <el-tag
+          v-for="tag in tags"
+          :key="tag"
+          closable
+          >
+          {{tag}}
+        </el-tag>
+      </div>
+      <div class="filtrate">
+        <div class="checkbox">
+          <div class="unit">
+            <div class="title">品类</div>
+            <el-checkbox-group
+              v-model="tags"
+            >
+              <el-checkbox v-for="item in filtrate.classifyOptions" :label="item" :key="item">{{item}}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+
+
+          <!--<el-checkbox-group-->
+            <!--v-model="tags"-->
+          <!--&gt;-->
+            <!--<el-checkbox v-for="item in filtrate.otherOptions" :label="item" :key="item">{{item}}</el-checkbox>-->
+          <!--</el-checkbox-group>-->
+        </div>
+        <div class="slider"></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -76,10 +122,30 @@
                     {src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'},
                     {src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'},
                 ],
+                pavilions:[
+                  {
+                    name:'日本馆',
+                    enName:'Japan Pavilion',
+                    img:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
+                  },{
+                    name:'韩国馆',
+                    enName:'Korea Pavilion',
+                    img:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
+                  },{
+                    name:'欧美馆',
+                    enName:'Europe&American Pavilion',
+                    img:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
+                  }
+                ],
                 brands:[
                     'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
                     'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
                 ],
+                tags:['护肤品'],
+                filtrate:{
+                    classifyOptions: ['护肤品', '彩妆', '母婴用品', '生活用品'],
+                    otherOptions: ['抗皱', '美白', '保湿', '防晒'],
+                },
                 goods:[
                     {
                         title:'热卖商品',
@@ -223,7 +289,7 @@
 <style lang="less">
   .about{
 
-    margin: 0 auto 100px;
+    margin: 0 auto ;
     .search{
       width: 1160px;
       margin: auto;
@@ -290,6 +356,7 @@
         }
       }
     }
+
     .carousel{
       .title{
         width: 1160px;
@@ -358,24 +425,94 @@
         }
       }
     }
-    .brand{
-      width: 1160px;
-      margin: 20px auto 0;
-      /*margin-top: 20px;*/
-      display: flex;
-      flex-wrap: wrap;
-      li{
-        /*display: inline-block;*/
-        width: 114px;
-        height: 110px;
-        margin: 1px;
-        border: 1px solid #EBEBEB;
+    .wrap{
+      background: #F0F0F0;
+      .pavilion{
+        width: 1160px;
+        margin: 0px auto 0;
+        padding-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        .unit{
+          text-align: left;
+
+          .name{
+            font-size: 22px;
+            color: #000000;
+          }
+          .enName{
+            font-size: 16px;
+            color: #545454;
+          }
+          img{
+            width: 355px;
+            height: 263px;
+            margin: 7px;
+          }
+        }
+      }
+      .brand{
+        width: 1160px;
+        margin: 30px auto 0;
+        /*margin-top: 20px;*/
+        display: flex;
+        flex-wrap: wrap;
+        li{
+          /*display: inline-block;*/
+          width: 114px;
+          height: 110px;
+          margin: 1px;
+          border: 1px solid #EBEBEB;
+          background: #fff;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .tag{
+        width: 1160px;
+        margin: 30px auto 30px;
+        text-align: right;
+        .el-tag{
+          background: #343538;
+          color: #FFF;
+          margin-left: 10px;
+          .el-icon-close{
+            color: #FFF
+          }
+          .el-icon-close:hover{
+            background: #fff;
+            color: #343538;
+          }
+        }
+      }
+      .filtrate{
+        width: 1160px;
+        margin: 0px auto ;
+        text-align: left;
+        padding: 50px 60px 90px;
         background: #fff;
-        img{
-          width: 100%;
-          height: 100%;
+        .checkbox{
+          display: flex;
+          .unit{
+
+            flex-basis: 100%;
+            .title{
+
+            }
+            .el-checkbox-group{
+
+              display: flex;
+              flex-direction: column;
+              .el-checkbox{
+                margin: 25px 0 0;
+              }
+            }
+          }
         }
       }
     }
+
   }
 </style>
