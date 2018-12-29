@@ -72,7 +72,7 @@
         </div>
       </div>
       <ul class="brand">
-        <li class="" v-for="item in 30" :key="item">
+        <li class="" v-for="item in 30" :key="item" title="hhhh">
           <img src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif" alt="">
         </li>
       </ul>
@@ -87,23 +87,41 @@
       </div>
       <div class="filtrate">
         <div class="checkbox">
-          <div class="unit">
-            <div class="title">品类</div>
+          <div class="unit" v-for="(i,k) in filtrate" :key="k">
+            <div class="title">{{i.classify}}</div>
             <el-checkbox-group
               v-model="tags"
+              @change="handleCheckedClassifyChange"
             >
-              <el-checkbox v-for="item in filtrate.classifyOptions" :label="item" :key="item">{{item}}</el-checkbox>
+              <el-checkbox v-for="(item,index) in i.details" :label="item" :key="index">{{item}}</el-checkbox>
             </el-checkbox-group>
           </div>
+          <div class="unit">
+            <div class="title">价格</div>
+            <div class="block">
+              <el-slider
+                      v-model="priceSlider"
+                      @change="changePrice"
+                      range
+                      :max="1000">
+              </el-slider>
+            </div>
+          </div>
 
-
-          <!--<el-checkbox-group-->
-            <!--v-model="tags"-->
-          <!--&gt;-->
-            <!--<el-checkbox v-for="item in filtrate.otherOptions" :label="item" :key="item">{{item}}</el-checkbox>-->
-          <!--</el-checkbox-group>-->
         </div>
-        <div class="slider"></div>
+
+      </div>
+      <div class="goodsLists">
+        <div class="goods-unit" v-for="(item,index) in goodsList" :key="index">
+          <el-card :body-style="{ padding: '0px',width: '230px',
+            height: '280px' }" shadow="hover">
+            <img :src="item.src" class="image">
+            <div style="padding:0px 20px 0px">
+              <div class="name">{{item.title}}</div>
+              <div class="price">￥{{item.price}}</div>
+            </div>
+          </el-card>
+        </div>
       </div>
     </div>
   </div>
@@ -142,147 +160,69 @@
                     'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
                 ],
                 tags:['护肤品'],
-                filtrate:{
-                    classifyOptions: ['护肤品', '彩妆', '母婴用品', '生活用品'],
-                    otherOptions: ['抗皱', '美白', '保湿', '防晒'],
-                },
-                goods:[
+                priceSlider:[0,500],
+                // filtrate:{
+                //
+                //     classifyOptions: ['护肤品', '彩妆', '母婴用品', '生活用品'],
+                //     otherOptions: ['抗皱', '美白', '保湿', '防晒'],
+                // },
+                filtrate:[
                     {
-                        title:'热卖商品',
-                        checkAll:'查看全部>',
-                        side:{
-                            keyword:'热卖商品',
-                            des:'实时更新热销商品排行',
-                            src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
-                        },
-                        goodsList:[
-                            {
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },
-                        ],
-                        ad:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
+                        classify:'品类',
+                        details:['护肤品', '彩妆', '母婴用品', '生活用品']
                     },{
-                        title:'热卖商品',
-                        checkAll:'查看全部>',
-                        side:{
-                            keyword:'热卖商品',
-                            des:'实时更新热销商品排行',
-                            src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
-                        },
-                        goodsList:[
-                            {
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },
-                        ],
-                        ad:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
-                    },{
-                        title:'热卖商品',
-                        checkAll:'查看全部>',
-                        side:{
-                            keyword:'热卖商品',
-                            des:'实时更新热销商品排行',
-                            src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif'
-                        },
-                        goodsList:[
-                            {
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },{
-                                src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
-                                title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
-                                price: '99999.00'
-                            },
-                        ],
-                        ad:''
+                        classify:'功效',
+                        details:['抗皱', '美白', '保湿', '防晒']
                     },
-                ]
+                ],
+
+                goodsList:[
+                    {
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },{
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },{
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },{
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },{
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },{
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },{
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },{
+                        src:'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/gigi.gif',
+                        title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
+                        price: '99999.00'
+                    },
+                ],
 
             }
+        },
+        methods: {
+            handleCheckedClassifyChange(value){
+                // console.log(value)
+            },
+            changePrice(e){
+                // this.data.priceSlider = e
+                // console.log('eee',e);
+            },
+
         }
     }
 </script>
@@ -491,7 +431,7 @@
         width: 1160px;
         margin: 0px auto ;
         text-align: left;
-        padding: 50px 60px 90px;
+        padding: 50px 60px 60px;
         background: #fff;
         .checkbox{
           display: flex;
@@ -509,6 +449,36 @@
                 margin: 25px 0 0;
               }
             }
+          }
+        }
+      }
+      .goodsLists{
+        width: 1160px;
+        margin: 0px auto ;
+        padding:50px 0 150px;
+        text-align: left;
+        .goods-unit{
+          cursor: pointer;
+          display: inline-block;
+
+          .image{
+            width: 200px;
+            height: 200px;
+            margin: 10px auto;
+            display: block;
+          }
+          .name{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            font-size: 12px;
+            color: #000000;
+            margin-bottom: 7px;
+          }
+          .price{
+            font-size: 12px;
+            color: #DD7427;
           }
         }
       }
