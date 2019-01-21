@@ -96,7 +96,9 @@
 </template>
 
 <script>
-export default {
+  import {getHomeData} from "../api/re";
+
+  export default {
     name: 'home',
     components: {
     },
@@ -244,11 +246,23 @@ export default {
                             title:'韩国Mypil天然乳胶促进睡眠高级 保健枕女士用 980g',
                             price: '99999.00'
                         },
+
                     ],
                     ad:''
                 },
             ]
 
+        }
+    },
+    created(){
+      this.getData()
+    },
+    methods:{
+        getData(){
+            const data = {};
+            getHomeData(data).then(response=>{
+                console.log('here', response)
+            })
         }
     }
 }
